@@ -1,54 +1,85 @@
 <html>
-  <head>
-	<title>{% block title %}{% endblock %}</title>
-    <strong>
-    	<link rel="stylesheet" href="{{ url_for('static', 
-filename='autmain.css') }}">
-		<link rel=stylesheet type=text/css href="{{ 
-url_for('static', filename='estilo.css') }}">
-		<script type="text/javascript" src="{{ url_for('static', 
-filename='jquery-1.8.3.min.js') }}"></script>
-	</strong>
-  </head>
+<head>
+<link rel="stylesheet" 
+href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" />
+ <script 
+src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+ <style type="text/css">
 
-  <body>
-    <header>
-      <div class="container">
-	{% block logo %}
-		<h1 class="logo">DEA4Web app</h1>
-    {% endblock %}
-      </div>
-     </header>
+#map { height: 550px; }
 
-    <div class="container">
-      {% block content %}
-      {% endblock %}
-    </div>
+ </style>
 
-    <strong><nav>
-   	{% block navegador %}
-      <ul class="menu">
-        {% for itens in menu %}
-			<li><a href="{{menu[itens]}}">{{itens}}</a></li>
-		{% endfor %}
-      </ul>
-	{% endblock %}
-    </nav></strong>
+<script type="javascript">
 
 
-	{% block conteudo %}
-	<div id="conteudo">
-	</div>
-	{% endblock %}
 
-	{% block sidebar %}
-	<div id="sidebar">
+</script>
 
-	</div>
-	{% endblock %}
-	{% block rodape %}{% endblock %}
+</head>
+<body>
+
+ <div id="map"></div>
+
+<script type="text/javascript">
+
+/* CRIANDO ICONES */
+var greenIcon = L.icon({
+    iconUrl: 'http://leafletjs.com/docs/images/leaf-green.png',
+    shadowUrl: 'http://leafletjs.com/docs/images/leaf-shadow.png',
+
+    iconSize:     [38, 95], // size of the icon
+    shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to 
+marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open 
+relative to the iconAnchor
+
+});
+
+var orangeIcon = L.icon({
+    iconUrl: 'http://leafletjs.com/docs/images/leaf-orange.png',
+    shadowUrl: 'http://leafletjs.com/docs/images/leaf-shadow.png',
+
+    iconSize:     [38, 95], // size of the icon
+    shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to 
+marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open 
+relative to the iconAnchor
+
+});
+/* FIM CRIANDO ICONES */
+
+/* CRIANDO O OBJETO MAPA */
+var map = L.map('map').setView([-7.9790,-38.3169], 3);
+
+/* ADCIONANDO MARCADOR AO MAPA */
+
+/* Modelo --> L.marker([coordenada x,coordenada y], {icon: 
+NomeDoIcone}).addTo(IDdaDIVdoMapa); */
+L.marker([-7.9050,-38.3109], {icon: greenIcon}).addTo(map);
+L.marker([-7.0050,-38.3009], {icon: orangeIcon}).addTo(map);
+
+/* FIM DO ADCIONANDO MARCADORES */
 
 
-  </body>
+/* RENDERIZANDO MAPA */
+L.tileLayer('http://{s}.tile.cloudmade.com/8dd4ed7fa8f14a9bac4b94af2b07ee3f/997/256/{z}/{x}/{y}.png', 
+{
+    attribution: 'Tag.i Maps &copy; <a href="http://openstreetmap.org" 
+target="_blank">OpenStreetMap</a> contributors, <a 
+href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, 
+Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+    maxZoom: 18
+}).addTo(map);
+/* FIM DA RENDERIZACAO */
+
+</script>
+
+
+
+</body>
 </html>
-
